@@ -32,7 +32,7 @@ create table Customer
 	phone int null);
 
 drop table if exists Orderr;
-create table Orderr
+create table Order
 	(receiptId int not null PRIMARY KEY,
 	date int null,
 	cid int null FOREIGN KEY REFERENCES Customer(cid),
