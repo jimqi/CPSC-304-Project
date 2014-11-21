@@ -79,9 +79,9 @@ function formSubmit(titleId) {
        /*
         Add a book title using the post variables title_id, title and pub_id.
         */
-        $customer_id = $_POST["title_id"];
-        $password = $_POST["new_title"];
-        $name = $_POST["new_pub_id"];
+        $customer_id = $_POST["cid"];
+        $password = $_POST["password"];
+        $name = $_POST["name"];
 		$address = $_POST['address'];
 		$phone_number = $_POST['phone'];
           
@@ -96,7 +96,7 @@ function formSubmit(titleId) {
         if($stmt->error) {       
           printf("<b>Error: %s.</b>\n", $stmt->error);
         } else {
-          echo "<b>Successfully added ".$title."</b>";
+          echo "<b>Successfully added ".$name."</b>";
         }
       }
    }
@@ -119,7 +119,7 @@ function formSubmit(titleId) {
      ****************************************************/
 
    // Select all of the book rows columns title_id, title and pub_id
-    if (!$result = $connection->query("SELECT title_id, title, pub_id FROM titles ORDER BY title")) {
+    if (!$result = $connection->query("SELECT cid, password, name, address, phone ORDER BY name")) {
         die('There was an error running the query [' . $db->error . ']');
     }
 
@@ -128,7 +128,7 @@ function formSubmit(titleId) {
     echo htmlspecialchars($_SERVER["PHP_SELF"]);
     echo "\" method=\"POST\">";
     // Hidden value is used if the delete link is clicked
-    echo "<input type=\"hidden\" name=\"title_id\" value=\"-1\"/>";
+    echo "<input type=\"hidden\" name=\"cid\" value=\"-1\"/>";
    // We need a submit value to detect if delete was pressed 
     echo "<input type=\"hidden\" name=\"submitDelete\" value=\"DELETE\"/>";
 
@@ -139,14 +139,14 @@ function formSubmit(titleId) {
     // Display each book title databaserow as a table row
     while($row = $result->fetch_assoc()){
         
-       echo "<td>".$row['title_id']."</td>";
-       echo "<td>".$row['title']."</td>";
-       echo "<td>".$row['pub_id']."</td><td>";
-	   echo "<td>".$row['address']."</td><td>";
-		echo "<td>".$row['phone_number']."</td><td>";
+       echo "<td>".$row['name']."</td>";
+       echo "<td>".$row['address']."</td>";
+       echo "<td>".$row['phone']."</td><td>";
+	   echo "<td>".$row['cid']."</td><td>";
+		echo "<td>".$row['password']."</td><td>";
        
        //Display an option to delete this title using the Javascript function and the hidden title_id
-       echo "<a href=\"javascript:formSubmit('".$row['title_id']."');\">DELETE</a>";
+       echo "<a href=\"javascript:formSubmit('".$row['cid']."');\">DELETE</a>";
        echo "</td></tr>";
         
     }
@@ -173,11 +173,11 @@ function formSubmit(titleId) {
 
 <form id="add" name="add" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <table border=0 cellpadding=0 cellspacing=0>
-        <tr><td>Name</td><td><input type="text" size=30 name="new_pub_id"</td></tr>
+        <tr><td>Name</td><td><input type="text" size=30 name="new_name"</td></tr>
         <tr><td>Address</td><td><input type="text" size=30 name="new_address"</td></tr>
         <tr><td>Phone Number:</td><td> <input type="text" size=5 name="new_phone"></td></tr>
-		<tr><td>Customer Id:</td><td> <input type="text" size=5 name="new_title_id"></td></tr>
-		<tr><td>Password:</td><td> <input type="text" size=5 name="new_title"></td></tr>
+		<tr><td>Customer Id:</td><td> <input type="text" size=5 name="new_cid"></td></tr>
+		<tr><td>Password:</td><td> <input type="text" size=5 name="new_password"></td></tr>
         <tr><td></td><td><input type="submit" name="submit" border=0 value="ADD"></td></tr>
     </table>
 </form>
