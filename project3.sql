@@ -1,8 +1,9 @@
+SET FOREIGN_KEY_CHECKS=0;
 
 drop table if exists Item;
  create table Item
 	(upc int not null PRIMARY KEY,
-	title varchar null,
+	title varchar(20),
 	type char(3) null,
 	category char(12) null,
 	company char(40) null,
@@ -15,52 +16,60 @@ drop table if exists Item;
 
 drop table if exists LeadSinger; 
 create table LeadSinger
-	(upc int not null FOREIGN KEY REFERENCES Item(upc),
+	(upc int not null,
+    FOREIGN KEY (upc) REFERENCES Item(upc),
 	name varchar(20) not null PRIMARY KEY);
 
 drop table if exists HasSong;
 create table HasSong
-	(upc int not null FOREIGN KEY REFERENCES Item(upc),
-	title varchar not null PRIMARY KEY); --references Song...?
+	(upc int not null, 
+    FOREIGN KEY (upc) REFERENCES Item(upc),
+	title varchar(20) not null PRIMARY KEY);
 
 drop table if exists Customer;
 create table Customer
 	(cid int not null PRIMARY KEY,
-	password varchar null,
+	password varchar(20),
 	name char(20) null,
 	address varchar(40) null,
 	phone int null);
 
 drop table if exists Orderr;
-create table Order
+create table Orderr
 	(receiptId int not null PRIMARY KEY,
 	date int null,
-	cid int null FOREIGN KEY REFERENCES Customer(cid),
-	card# int null,
+	cid int null,
+    FOREIGN KEY (cid) REFERENCES Customer(cid),
+	card int null,
 	expiryDate int null,
 	expectedDate int null,
 	deliveredDate int null);
 
 drop table if exists PurchaseItem;
 create table PurchaseItem
-	(receiptId int not null FOREIGN KEY REFERENCES Orderr(receiptId),
-	upc int not null FOREIGN KEY REFERENCES Item(upc),
+	(receiptId int not null,
+    FOREIGN KEY (receiptId) REFERENCES Orderr(receiptId),
+	upc int not null,
+    FOREIGN KEY (upc) REFERENCES Item(upc),
 	quantity int null);
 
 drop table if exists Returnn;
 create table Returnn
 	(retid int not null PRIMARY KEY,
 	date int null,
-	receiptId int null FOREIGN KEY REFERENCES Orderr(receiptId));
+	receiptId int null,
+    FOREIGN KEY (receiptId) REFERENCES Orderr(receiptId));
  
 drop table if exists ReturnItem;
 create table ReturnItem
-	(retid int not null FOREIGN KEY REFERENCES Returnn(retid),
-	upc int not null FOREIGN KEY REFERENCES Item(upc),
+	(retid int not null,
+    FOREIGN KEY (retid) REFERENCES Returnn(retid),
+	upc int not null,
+    FOREIGN KEY (upc) REFERENCES Item(upc),
 	quantity int null);
  
 -- grant select on salesdetails to public;
-
+/*
 create unique index pubind on publishers
 (pub_id);
  
