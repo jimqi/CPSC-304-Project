@@ -40,7 +40,7 @@
 		}
 		elseif (isset($_POST["register"]) && $_POST["register"] ==  "REGISTER") {
 			//inserting new tuple into customer table
-
+/*
 			//get the Customer_ID and password via POST
 			$Customer_ID = $_POST['new_customer_ID'];
 			$Password = $_POST['new_password'];
@@ -52,9 +52,9 @@
 
 			//execute the statement
 			$stmt->execute();
-
-			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
-			}
+*/
+			echo "<script type=\"text/javascript\">document.location.href=\"register.php\";</script>";
+			//}
 		}
 	}
 ?>
