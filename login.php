@@ -19,7 +19,18 @@
 	//start session
 	session_start();
 	//mysql connection
-	include_once("config.php");
+	//include_once("config.php");
+	$db_host = '127.0.0.1:3306';
+	$db_username = 'root';
+	$db_password = 'K7lp8tt3pksql';
+	$db_name = 'CPSC304';
+	$connection = new mysqli($db_host, $db_username, $db_password, $db_name);
+
+	// Check that the connection was successful, otherwise exit
+    if (mysqli_connect_errno()) {
+        printf("Connect failed: %s\n", mysqli_connect_error());
+        exit();
+    }
 
 	//detect the user action
 	//case1: first visit or refresh
@@ -32,8 +43,23 @@
 		if (isset($_POST["login"]) && $_POST["login"] ==  "LOGIN") {
 			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
 		}
-		if (isset($_POST["register"]) && $_POST["register"] ==  "REGISTER") {
+		elseif (isset($_POST["register"]) && $_POST["register"] ==  "REGISTER") {
+			//inserting new tuple into customer table
+
+			//get the Customer_ID and password via POST
+			$Customer_ID = $_POST['new_customer_ID'];
+			$Password = $_POST['new_password'];
+			//Create a INSERT query prepared statement with ? for customer ID and password
+			$stmt = $connection->prepare("INSERT INTO Customer (cid, password, name, address, phone) VALUES (?, ?, null, null, null)");
+			//bind the customer ID and password passed via POST
+			if(isset($Customer_ID) && isset($Password)) {
+			$stmt->bind_param("is", $Customer_ID, $Password);
+
+			//execute the statement
+			$stmt->execute();
+
 			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
+			}
 		}
 	}
 ?>
