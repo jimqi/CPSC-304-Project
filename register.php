@@ -16,6 +16,7 @@
 <?php
 	//setup connection
 	include_once("config.php");
+	//$connection = $_SESSION['connection'];
 
 	// Check that the connection was successful, otherwise exit
     if (mysqli_connect_errno()) {
@@ -42,7 +43,7 @@
 			//Create a INSERT query prepared statement with ? for customer ID and password
 			$stmt = $connection->prepare("INSERT INTO Customer (cid, password, name, address, phone) VALUES (?, ?, ?, ?, ?)");
 			//bind the customer ID and password passed via POST
-			//if(isset($Customer_ID) && isset($Password) && isset($Name) && isset($Address) && isset($Phonenumber)) {
+			if(isset($Customer_ID) && isset($Password) && isset($Name) && isset($Address) && isset($Phonenumber)) {
 			$stmt->bind_param("isssi", $Customer_ID, $Password, $Name, $Address, $Phonenumber);
 
 			//execute the statement
@@ -50,7 +51,7 @@
 
 			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
 
-    	//}
+    	}
     }
 }
 

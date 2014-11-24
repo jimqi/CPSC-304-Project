@@ -21,6 +21,8 @@
 	//mysql connection
 	include_once("config.php");
 
+	//$_SESSION['connection'] = $connection;
+
 	// Check that the connection was successful, otherwise exit
     if (mysqli_connect_errno()) {
         printf("Connect failed: %s\n", mysqli_connect_error());
