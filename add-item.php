@@ -49,8 +49,8 @@
 			//if unit price is set then insert it
 			if(isset($Unitprice)) {
 			
-			$stmt = $connection->prepare("INSERT INTO ITEM (upc, price, stock) VALUES (?, ?, ?)");
-			$stmt->bind_param("iii", $UPC, $Quantity, $Unitprice);
+			$stmt = $connection->prepare("UPDATE ITEM stock = stock + ?, price = ? WHERE upc = ? VALUES (?,?,?)");
+			$stmt->bind_param("idi", $Quantity, $Unitprice, $UPC);
 
 			//execute the statement
 			$stmt->execute();
@@ -59,8 +59,8 @@
 			}
 			// if unit price is set only insert upc and stock
 			else {
-			$stmt = $connection->prepare("INSERT INTO ITEM (upc, stock) VALUES (?, ?)");
-			$stmt->bind_param("ii", $UPC, $Quantity);
+			$stmt = $connection->prepare("UPDATE ITEM stock WHERE upc = ? VALUES (?, ?)");
+			$stmt->bind_param("ii", $Quantity, $UPC);
 			$stmt->execute();
 
 			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
