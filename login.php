@@ -22,7 +22,7 @@
 	//include_once("config.php");
 	$db_host = '127.0.0.1:3306';
 	$db_username = 'root';
-	$db_password = 'K7lp8tt3pksql';
+	$db_password = '';
 	$db_name = 'CPSC304';
 	$connection = new mysqli($db_host, $db_username, $db_password, $db_name);
 
