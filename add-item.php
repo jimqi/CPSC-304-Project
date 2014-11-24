@@ -49,21 +49,21 @@
 			//if unit price is set then insert it
 			if(isset($Unitprice)) {
 			
-			$stmt = $connection->prepare("UPDATE ITEM stock = stock + ?, price = ? WHERE upc = ? VALUES (?,?,?)");
+			$stmt = $connection->prepare("UPDATE ITEM stock = stock + ?, price = ? WHERE upc = ? ");
 			$stmt->bind_param("idi", $Quantity, $Unitprice, $UPC);
 
 			//execute the statement
 			$stmt->execute();
 
-			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
+			//echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
 			}
 			// if unit price is set only insert upc and stock
 			else {
-			$stmt = $connection->prepare("UPDATE ITEM stock WHERE upc = ? VALUES (?, ?)");
+			$stmt = $connection->prepare("UPDATE ITEM stock WHERE upc = ? ");
 			$stmt->bind_param("ii", $Quantity, $UPC);
 			$stmt->execute();
 
-			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
+			//echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
 			}
 			
 			}
