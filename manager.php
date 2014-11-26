@@ -93,7 +93,7 @@ $(document).ready(function(){
 </form>
 -->
 
-<!-- TODO -->
+
 <h2>Generate Sales Report</h2>
 <form id="generate" name="generate" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <table border=0 cellpadding=0 cellspacing=0>
@@ -117,29 +117,57 @@ $(document).ready(function(){
        if (isset($_POST["submit"]) && $_POST["submit"] == "GENERATE") {
           $date = $_POST["date"];
           
-          // Select all of the book rows columns title_id, title and pub_id
+          // Select what to display
           if (!$result = $connection->query("SELECT upc, category, price, quantity
 					     FROM Item, Orderr, PurchaseItem
-					     WHERE date=".$date
-					     "GROUP BY category")) {
+					     WHERE date=".$date."
+                                             GROUP BY category")) {
                    die('There was an error running the query [' . $db->error . ']');
           }
           
+          $quantitySold;
           $totalSales;
-          
+          $prevCategory;
+          $currUnits; // counts category units
+          $currVal; // counts category total value
+
           // Display each book title database row as a table row
           while($row = $result->fetch_assoc()){
-            echo "<td>".$row['upc']."</td>";
+            $totalVal = $row['price']*$row['quantity'];
+
+            if ($prevCategory != $row['category']) {
+              echo "<tr><td><br /></td>";
+              echo "<td>Total:</td>";
+              echo "<td><br /></td>";
+              echo "<td>".$currUnits."</td>";
+              echo "<td>".$currVal."</td>";
+              
+              // compute total daily sales values: quantity and price
+              $quantitySold += $currUnits;
+              $totalSales += $currVal;
+
+              // reset values for next category
+              $currUnits = 0;
+              $currVal = 0;
+            }
+
+            echo "<tr><td>".$row['upc']."</td>";
             echo "<td>".$row['category']."</td>";
-            echo "<td>".$row['price']."</td><td>";
-            echo "<td>".$row['quantity']."</td><td>";
-            echo "<td>".$row['price']*$row['quantity']."</td><td>";
-            $totalSales += $row['quantity'];
+            echo "<td>".$row['price']."</td>";
+            echo "<td>".$row['quantity']."</td>";
+            echo "<td>".$totalVal."</td></tr>";
+
+            $prevCategory = $row['category']; // set category for comparison
+            $currUnits += $row['quantity'];
+            $currVal += $totalVal;
           }
+
+          echo "<tr><td align=right>--------</td></tr>";
+          echo "<tr align=right><td>Total Daily Sales:</td>";
+          echo "<td>".$quantitySold."</td>";
+          echo "<td>".$totalSales."</td></tr>";
        }
     }
-
-    // echo "</form>";
 
     // Close the connection to the database once we're done with it.
     mysqli_close($connection);
