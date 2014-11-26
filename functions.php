@@ -31,18 +31,31 @@ function showCart() {
 		$output[] = '<form action="shoppingcart.php?action=update" method="post" id="cart">';
 		$total = 0;
 		$output[] = '<table>';
+		$output[] = '<table border=0 cellpadding=0 cellspacing=0>';
+		$output[] = '<tr valign=center>';
+		$output[] = '<th class=rowheader>Product Code</th>';
+		$output[] = '<th class=rowheader>Title</th>';
+		$output[] = '<th class=rowheader>Type</th>';
+		$output[] = '<th class=rowheader>Category</th>';
+		$output[] = '<th class=rowheader>Stock</th>';
+		$output[] = '<th class=rowheader>Price</th>';
+		$output[] = '</tr>';
 		foreach ($contents as $id=>$qty) {
 			$sql = 'SELECT * FROM ITEM WHERE upc = '.$id;
 			$result = $connection->query($sql);
 			$row = $result->fetch_assoc();
 			$price = $row['price'];
-			$output[] = '<tr>';
-			$output[] = '<td><a href="shoppingcart.php?action=delete&id='.$id.'" class="r">Remove</a></td>';
-			$output[] = '<td>'. $qty .'</td>';
-			$output[] = '<td>&dollar;' .$price.'</td>';
+			$output[] = '<tr align=center>';
+			$output[] = '<td>'. $row['upc'] .'</td>';
+			$output[] = '<td>'. $row['title'] .'</td>';
+			$output[] = '<td>'. $row['type'] .'</td>';
+			$output[] = '<td>'. $row['category'] .'</td>';
+			$output[] = '<td>'. $row['stock'] .'</td>';
+			$output[] = '<td>&dollar;' .$row['price'].'</td>';
 			$output[] = '<td><input type="text" name="qty'.$id.'" value="'.$qty.'" size="3" maxlength="3" /></td>';
 			$output[] = '<td>&dollar;'.($price * $qty).'</td>';
 			$total += $price * $qty;
+			$output[] = '<td><a href="shoppingcart.php?action=delete&id='.$id.'" class="r">Remove</a></td>';
 			$output[] = '</tr>';
 		}
 		$output[] = '</table>';

@@ -97,8 +97,7 @@ echo writeShoppingCart();
 
 <div id="contents">
 
-<h1>Please check quantities...</h1>
-
+</tr>
 <?php
 echo showCart();
 ?>
