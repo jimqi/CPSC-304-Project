@@ -36,7 +36,7 @@
 	if($_SERVER["REQUEST_METHOD"] == 'POST') {
 		//echo "<script type=\"text/javascript\">document.location.href=\"xampp\";</script>";
 		if (isset($_POST["submit"]) && $_POST["submit"] ==  "ADD") {
-			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
+			//echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
 		
 
 
@@ -47,10 +47,10 @@
 			//Create a INSERT query prepared statement with ? for customer ID and password
 			
 			//if unit price is set then insert it
-			if(isset($Unitprice)) {
+			if($Unitprice != 0) {
 			
-			$stmt = $connection->prepare("UPDATE ITEM stock = stock + ?, price = ? WHERE upc = ? ");
-			$stmt->bind_param("idi", $Quantity, $Unitprice, $UPC);
+			$stmt = $connection->prepare("UPDATE ITEM SET stock = stock + ?, price = ? WHERE upc = ?");
+			$stmt->bind_param("iii", $Quantity, $Unitprice, $UPC);
 
 			//execute the statement
 			$stmt->execute();
@@ -58,8 +58,8 @@
 			//echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
 			}
 			// if unit price is set only insert upc and stock
-			else {
-			$stmt = $connection->prepare("UPDATE ITEM stock WHERE upc = ? ");
+			else{
+			$stmt = $connection->prepare("UPDATE ITEM SET stock = stock + ? WHERE upc = ?");
 			$stmt->bind_param("ii", $Quantity, $UPC);
 			$stmt->execute();
 
