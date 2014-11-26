@@ -10,8 +10,8 @@ drop table if exists Item;
 	year int null,
 	price float null,
 	stock int null,
-	--CHECK (category='rock' OR category='pop' OR category='rap' OR category='country'
-	--OR category='classical' OR category='new age' OR category='instrumental'),
+	-- CHECK (category='rock' OR category='pop' OR category='rap' OR category='country'
+	-- OR category='classical' OR category='new age' OR category='instrumental'),
 	CHECK (type='cd' OR type='dvd'));
 
 drop table if exists LeadSinger; 

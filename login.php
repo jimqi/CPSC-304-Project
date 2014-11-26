@@ -38,23 +38,12 @@
 	if($_SERVER["REQUEST_METHOD"] == 'POST') {
 		//echo "<script type=\"text/javascript\">document.location.href=\"xampp\";</script>";
 		if (isset($_POST["login"]) && $_POST["login"] ==  "LOGIN") {
+			$_SESSION['CID'] = $_POST['new_customer_ID'];
 			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
 		}
 		elseif (isset($_POST["register"]) && $_POST["register"] ==  "REGISTER") {
-			//inserting new tuple into customer table
-/*
-			//get the Customer_ID and password via POST
-			$Customer_ID = $_POST['new_customer_ID'];
-			$Password = $_POST['new_password'];
-			//Create a INSERT query prepared statement with ? for customer ID and password
-			$stmt = $connection->prepare("INSERT INTO Customer (cid, password, name, address, phone) VALUES (?, ?, null, null, null)");
-			//bind the customer ID and password passed via POST
-			if(isset($Customer_ID) && isset($Password)) {
-			$stmt->bind_param("is", $Customer_ID, $Password);
 
-			//execute the statement
-			$stmt->execute();
-*/
+			//move to registration page (register.php)
 			echo "<script type=\"text/javascript\">document.location.href=\"register.php\";</script>";
 			//}
 		}
