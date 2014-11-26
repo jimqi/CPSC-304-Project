@@ -8,6 +8,7 @@ $action = $_GET['action'];
 //CASE1: Adding an item upc
 //CASE2: Deleting an item upc
 //CASE3: Updating item qty
+//CASE4: Moving to checkout
 
 switch ($action) {
 	case 'add':
@@ -66,8 +67,6 @@ switch ($action) {
 	$cart = $newcart;
 	$_SESSION['cart'] = $cart;
 	break;
-	default:
-	break;
 }
 
 ?>
@@ -91,7 +90,6 @@ switch ($action) {
 <h1>Your Shopping Cart</h1>
 
 <?php
-echo $cart;
 echo writeShoppingCart();
 ?>
 
@@ -104,9 +102,11 @@ echo writeShoppingCart();
 echo showCart();
 ?>
 
-<p><a href="checkout.php">Checkout</a></p>
-
 </div>
+
+<FORM METHOD="LINK" ACTION="checkout.php">
+<INPUT TYPE="submit" VALUE="CHECKOUT">
+</FORM>
 
 </body>
 </html>

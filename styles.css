@@ -48,7 +48,7 @@ a:hover { color: #bb3902; font-weight:normal; text-decoration:underline;}
 .rowheader {
 	font-family: verdana,helvetica;
 	color: #000000;
-	background-color: #ffffff;
+	background-color: #00cccc;
 	font-weight: plain;
 	font-size: 14pt;
         width: 160px;
