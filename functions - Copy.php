@@ -43,7 +43,6 @@ function showCart() {
 		$output[] = '<th class=rowheader>Subtotal</th>';
 		$output[] = '<th class=rowheader></th>';
 		$output[] = '</tr>';
-		// converts the string of upcs into upc:qty pairs
 		foreach ($contents as $id=>$qty) {
 			$sql = 'SELECT * FROM ITEM WHERE upc = '.$id;
 			$result = $connection->query($sql);

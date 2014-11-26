@@ -5,6 +5,9 @@ require_once("functions.php");
 $cart = $_SESSION['cart'];
 $action = $_GET['action'];
 
+//CASE1: Adding an item upc
+//CASE2: Deleting an item upc
+//CASE3: Updating item qty
 
 switch ($action) {
 	case 'add':
@@ -79,8 +82,7 @@ switch ($action) {
 <!--
 	stylesheet
 -->
-	<link href="shoppingcart.css" rel="stylesheet" type="text/css">
-
+	<link href="styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
