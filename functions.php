@@ -36,7 +36,6 @@ function showCart() {
 			$result = $connection->query($sql);
 			$row = $result->fetch_assoc();
 			$price = $row['price'];
-			$qty = $row['stock'];
 			$output[] = '<tr>';
 			$output[] = '<td><a href="shoppingcart.php?action=delete&id='.$id.'" class="r">Remove</a></td>';
 			$output[] = '<td>'. $qty .'</td>';
