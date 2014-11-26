@@ -102,7 +102,7 @@ $(document).ready(function(){
     </table>
 </form>
 
-<h2>Sales Report</h2>
+<h3>Sales Report</h3>
 <table border=0 cellpadding=0 cellspacing=0>
        <tr valign=center>
            <td class=rowheader>UPC</td>
@@ -166,6 +166,56 @@ $(document).ready(function(){
           echo "<tr align=right><td>Total Daily Sales:</td>";
           echo "<td>".$quantitySold."</td>";
           echo "<td>".$totalSales."</td></tr>";
+       }
+    }
+
+    // Close the connection to the database once we're done with it.
+    mysqli_close($connection);
+?>
+</table>
+
+
+<h2>Top Selling Items</h2>
+<form id="topitems" name="topitems" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <table border=0 cellpadding=0 cellspacing=0>
+        <tr><td>Date:</td><td><input type="text" size=30 name="date"</td></tr>
+        <tr><td>Number:</td><td><input type="number" size=30 name="number"</td></tr>
+	<tr><td></td><td><input type="submit" name="submit" border=0 value="TOP_ITEMS"></td></tr>
+    </table>
+</form>
+
+<h3>List of Top Selling Items</h3>
+<table border=0 cellpadding=0 cellspacing=0>
+       <tr valign=center>
+           <td class=rowheader>Title</td>
+           <td class=rowheader>Company</td>
+           <td class=rowheader>Current Stock</td>
+           <td class=rowheader>Number of Copies Sold</td>
+       </tr>
+
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+       if (isset($_POST["submit"]) && $_POST["submit"] == "TOP_ITEMS") {
+          $date = $_POST["date"];
+          $n = $_POST["number"];
+
+          // Select what to display
+          if (!$result = $connection->query("SELECT title, company, stock, count(quantity)
+					     FROM Item, PurchaseItem, Order
+					     WHERE date=".$date."
+					     GROUP BY upc
+                                             ORDER BY count(quantity) desc")) {
+                   die('There was an error running the query [' . $db->error . ']');
+          }
+
+          while($row = $result->fetch_assoc() && $i < $n){
+            echo "<tr><td>".$row['title']."</td>";
+            echo "<td>".$row['company']."</td>";
+            echo "<td>".$row['stock']."</td>";
+            echo "<td>".$row['count(quantity)']."</td>";
+
+            $i++;
+          }
        }
     }
 
