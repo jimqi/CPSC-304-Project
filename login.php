@@ -10,6 +10,11 @@
 </head>
 
 <body>
+<ul>
+  <li><a href="login.php">Customer Login</a></li>
+  <li><a href="manager.php">Manager</a></li>
+  <li>Clerk</li>
+</ul>
 
 <?php
 

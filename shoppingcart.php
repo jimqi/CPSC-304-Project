@@ -90,6 +90,8 @@ if(isset($_GET['action'])) {
 	<li><a href="shoppingcart.php">Shopping Cart</a></li>
 	<li><a href="add-item.php">Add Items</a></li>
 	<li><a href="checkout.php">Checkout</a></li>
+        <li><a href="manager.php">Manager</a></li>
+        <li>Clerk</li>
 </ul>
 
 <div id="shoppingcart">
