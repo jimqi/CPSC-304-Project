@@ -36,3 +36,26 @@ td {
 	color: #000000;
 	font-size: 12px;
 }
+a {
+	font-family: verdana,helvetica;
+	font-size: 12px;
+}
+a:link { color: #bb3902; font-weight:normal; text-decoration:underline;}
+a:visited { color: #bb3902; font-weight:normal; text-decoration:underline;}
+a:active { color: #bb3902; font-weight:normal; text-decoration:underline;}
+a:hover { color: #bb3902; font-weight:normal; text-decoration:underline;}
+
+.rowheader {
+	font-family: verdana,helvetica;
+	color: #000000;
+	background-color: #ffffff;
+	font-weight: plain;
+	font-size: 14pt;
+        width: 160px;
+}
+
+p {
+	font-family: verdana,helvetica;
+	color: #000000;
+	font-size: 12px;
+}
