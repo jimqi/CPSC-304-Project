@@ -6,23 +6,9 @@
 <title>CPSC 304 Store - Manage</title>
     <link href="styles.css" rel="stylesheet" type="text/css">
 
-<!-- Javascript to submit a title_id as a POST form, used with the "delete" links -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-  $("#hide").click(function(){
-    $("p").hide();
-  });
-  $("#show").click(function(){
-    $("p").show();
-  });
-});
-</script>
-
 </head>
 
 <body>
-<h1>Registration</h1>
 <?php
     //start session
     session_start();
@@ -39,7 +25,7 @@ $(document).ready(function(){
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
        if (isset($_POST["submit"]) && $_POST["submit"] == "ADD_STOCK") {
           $upc = $_POST["upc"];
-          $price = $_POST['new_price'];
+          $newprice = $_POST['new_price'];
           $newstock = $_POST['add_stock'];
 
           if (!$currentStock = $connection->query("SELECT stock
@@ -49,17 +35,16 @@ $(document).ready(function(){
           }
 
           $stmt = $connection->prepare("UPDATE Item
-                                        SET stock = ".$currentStock + $newstock."
-                                            && price = CASE
-                                                           WHEN ".$price."IS NOT NULL
-                                                                THEN ".$price."
-                                                                ELSE price
-                                        WHERE upc = ".$upc);
-                                        // INSERT INTO Customer (cid, password, name, address, phone) VALUES (?,?,?,?,?)");
+                                        SET stock = stock + ?,
+                                            price = CASE
+                                                        WHEN ? IS NOT NULL
+                                                        THEN ?
+                                                        ELSE price
+                                        WHERE upc = ?");
 
           // Bind the parameters
-          //$stmt->bind_param("iii", $upc, $price, $stock);
-          
+          $stmt->bind_param("iii", $newstock, $newprice, $newprice, $upc);
+
           // Execute the insert statement
           $stmt->execute();
           
@@ -168,9 +153,6 @@ $(document).ready(function(){
           echo "<td>".$totalSales."</td></tr>";
        }
     }
-
-    // Close the connection to the database once we're done with it.
-    mysqli_close($connection);
 ?>
 </table>
 
