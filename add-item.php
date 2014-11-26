@@ -50,7 +50,7 @@
 			if($Unitprice != 0) {
 			
 			$stmt = $connection->prepare("UPDATE ITEM SET stock = stock + ?, price = ? WHERE upc = ?");
-			$stmt->bind_param("iii", $Quantity, $Unitprice, $UPC);
+			$stmt->bind_param("idi", $Quantity, $Unitprice, $UPC);
 
 			//execute the statement
 			$stmt->execute();
