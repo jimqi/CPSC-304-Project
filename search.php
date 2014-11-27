@@ -15,15 +15,11 @@
 </head>
 
 <body>
-
-<nav id="nav01"></nav>
-<script src="Script.js"></script>
-
-<h2>Search Results</h2>
-
+	<h2>Search Results</h2>
+<!-- Set up a table to view the book titles -->
 <table border=0 cellpadding=0 cellspacing=0>
-
 <!-- Create the table column headings -->
+
 <tr valign=center>
 <td class=rowheader>Upc</td>
 <td class=rowheader>Title</td>
@@ -43,6 +39,7 @@
     echo htmlspecialchars($_SERVER["PHP_SELF"]);
     echo "\" method=\"POST\">";
         echo "<td>".$row['upc']."</td>";
+			$input = $row['upc'];
        echo "<td>".$row['title']."</td>";
        echo "<td>".$row['type']."</td>";
 	  echo "<td>".$row['category']."</td>";
@@ -50,10 +47,8 @@
 	  echo "<td>".$row['year']."</td>";
       echo "<td>".$row['price']."</td>";
 	  echo "<td>".$row['stock']."</td>";
-	  echo "<td><input type='submit' name='submit' border=0 value='ADD'></td>";
 	  echo "</td></tr>";
-	global $input; 
-	$input = $row['upc'];
+
 	
 	
 
@@ -66,7 +61,7 @@
 	//mysql connection
 	include_once("config.php");
 	
-
+global $input;
 
 	// Check that the connection was successful, otherwise exit
     if (mysqli_connect_errno()) {
@@ -85,9 +80,10 @@
 	if($_SERVER["REQUEST_METHOD"] == 'POST') {
 		//echo "<script type=\"text/javascript\">document.location.href=\"xampp\";</script>";
 		
+		
+		
 	
-	
-
+		
 	
 		
 		if (isset($_POST["submit"]) && $_POST["submit"] ==  "SEARCH") {
@@ -96,6 +92,7 @@
 			$Category = $_POST['category'];
 			$Title = $_POST['new_title'];
 			$LeadingSinger = $_POST['new_leading_singer'];
+		
 			
 	
 		
@@ -112,6 +109,7 @@
 			}
 			    while($row = $result->fetch_assoc()){
 					populate($row);
+
        //Display an option to delete this title using the Javascript function and the hidden title_id
       // echo "</td></tr>";
     }
@@ -125,6 +123,7 @@
 				echo ("No Results");
 			}
 			    while($row = $result->fetch_assoc()){
+				
 					populate($row);
 					
 					
@@ -217,10 +216,7 @@
 			
 			}
 			
-					  if (isset($_POST["submit"]) && $_POST["submit"] ==  "ADD") {
-			  echo ($input);
-	
-		}
+
 			
 			
 			
@@ -229,6 +225,18 @@
 		
 		
 	}
+			 if (isset($_POST["submit"]) && $_POST["submit"] ==  "ADD") {
+			 $UPC = $_POST['new_upc'];
+			 if ($cart) {	
+			$cart .= ','.$UPC;
+			$_SESSION['cart'] = $cart;
+		} else {
+			$cart = $_GET['id'];
+			$_SESSION['cart'] = $cart;
+		}
+
+	
+		}
 
 	}
 ?>
@@ -252,7 +260,12 @@
 		   </select>
         <tr><td>Title</td><td><input type="text" size=30 name="new_title"</td></tr>
 		   <tr><td>Leading Singer</td><td><input type="text" size=30 name="new_leading_singer"</td></tr>
-		   <tr><td></td><td><input type="submit" name="submit" border=0 value="SEARCH"></td></tr>		   
+		   <tr><td></td><td><input type="submit" name="submit" border=0 value="SEARCH"></td></tr>	
+		   
+		<tr><td>UPC</td><td><input type="text" size=30 name="new_upc"</td></tr>
+  	  <tr><td></td><td><input type='submit' name='submit' border=0 value='ADD'></td></tr>	
+
+
     </table>
 </form>
 </body>
