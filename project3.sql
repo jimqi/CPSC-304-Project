@@ -68,38 +68,6 @@ create table ReturnItem
     FOREIGN KEY (upc) REFERENCES Item(upc),
 	quantity int null);
  
--- grant select on salesdetails to public;
-/*
-create unique index pubind on publishers
-(pub_id);
- 
-create unique index auidind 
-on authors (au_id);
- 
-create index aunmind 
-on authors (au_lname, au_fname);
- 
-create unique index titleidind 
-on titles (title_id);
- 
-create index titleind 
-on titles (title);
- 
-create unique index taind 
-on titleauthors (au_id, title_id);
- 
-create unique index edind 
-on editors (ed_id);
- 
-create index ednmind 
-on editors (ed_lname, ed_fname);
- 
-create unique index teind 
-on titleditors (ed_id, title_id);
-  
-create index rstidind 
-on roysched (title_id);
-
 
 insert into Item
 values('468791534685', 'CeeLos Greatest Hits', 'cd', 'pop', 'Brick Records', '2012', '19.99', '10');
@@ -182,6 +150,7 @@ values('475629387543', 'The Raw Suckers');
  
 insert into LeadSinger
 values('295734573849', 'Kevin Hardy');
+
 
 insert into HasSong
 values('468791534685', 'Forget You');
@@ -285,6 +254,20 @@ values('295734573849', 'Hard Hitting');
 insert into HasSong
 values('295734573849', 'Push Shove Pull');
 
-
-
 commit;
+
+
+/* SQL templates for select, insert, delete.
+
+SELECT ...
+FROM ...
+WHERE ...
+
+// insert only used for new customers
+INSERT INTO ...
+VALUES ...
+
+DELETE FROM ...
+WHERE ...
+
+*/

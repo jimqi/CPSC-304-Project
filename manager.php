@@ -6,23 +6,15 @@
 <title>CPSC 304 Store - Manage</title>
     <link href="styles.css" rel="stylesheet" type="text/css">
 
-<!-- Javascript to submit a title_id as a POST form, used with the "delete" links -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-  $("#hide").click(function(){
-    $("p").hide();
-  });
-  $("#show").click(function(){
-    $("p").show();
-  });
-});
-</script>
-
 </head>
 
 <body>
-<h1>Registration</h1>
+<ul>
+  <li><a href="login.php">Customer Login</a></li>
+  <li><a href="manager.php">Manager</a></li>
+  <li>Clerk</li>
+</ul>
+
 <?php
     //start session
     session_start();
@@ -39,7 +31,7 @@ $(document).ready(function(){
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
        if (isset($_POST["submit"]) && $_POST["submit"] == "ADD_STOCK") {
           $upc = $_POST["upc"];
-          $price = $_POST['new_price'];
+          $newprice = $_POST['new_price'];
           $newstock = $_POST['add_stock'];
 
           if (!$currentStock = $connection->query("SELECT stock
@@ -49,17 +41,16 @@ $(document).ready(function(){
           }
 
           $stmt = $connection->prepare("UPDATE Item
-                                        SET stock = ".$currentStock + $newstock."
-                                            && price = CASE
-                                                           WHEN ".$price."IS NOT NULL
-                                                                THEN ".$price."
-                                                                ELSE price
-                                        WHERE upc = ".$upc);
-                                        // INSERT INTO Customer (cid, password, name, address, phone) VALUES (?,?,?,?,?)");
+                                        SET stock = stock + ?,
+                                            price = CASE
+                                                        WHEN ? IS NOT NULL
+                                                        THEN ?
+                                                        ELSE price
+                                        WHERE upc = ?");
 
           // Bind the parameters
-          //$stmt->bind_param("iii", $upc, $price, $stock);
-          
+          $stmt->bind_param("iii", $newstock, $newprice, $newprice, $upc);
+
           // Execute the insert statement
           $stmt->execute();
           
@@ -102,7 +93,7 @@ $(document).ready(function(){
     </table>
 </form>
 
-<h2>Sales Report</h2>
+<h3>Sales Report</h3>
 <table border=0 cellpadding=0 cellspacing=0>
        <tr valign=center>
            <td class=rowheader>UPC</td>
@@ -166,6 +157,53 @@ $(document).ready(function(){
           echo "<tr align=right><td>Total Daily Sales:</td>";
           echo "<td>".$quantitySold."</td>";
           echo "<td>".$totalSales."</td></tr>";
+       }
+    }
+?>
+</table>
+
+
+<h2>Top Selling Items</h2>
+<form id="topitems" name="topitems" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <table border=0 cellpadding=0 cellspacing=0>
+        <tr><td>Date:</td><td><input type="text" size=30 name="date"</td></tr>
+        <tr><td>Number:</td><td><input type="number" size=30 name="number"</td></tr>
+	<tr><td></td><td><input type="submit" name="submit" border=0 value="TOP_ITEMS"></td></tr>
+    </table>
+</form>
+
+<h3>List of Top Selling Items</h3>
+<table border=0 cellpadding=0 cellspacing=0>
+       <tr valign=center>
+           <td class=rowheader>Title</td>
+           <td class=rowheader>Company</td>
+           <td class=rowheader>Current Stock</td>
+           <td class=rowheader>Number of Copies Sold</td>
+       </tr>
+
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+       if (isset($_POST["submit"]) && $_POST["submit"] == "TOP_ITEMS") {
+          $date = $_POST["date"];
+          $n = $_POST["number"];
+
+          // Select what to display
+          if (!$result = $connection->query("SELECT title, company, stock, count(quantity)
+					     FROM Item, PurchaseItem, Order
+					     WHERE date=".$date."
+					     GROUP BY upc
+                                             ORDER BY count(quantity) desc")) {
+                   die('There was an error running the query [' . $db->error . ']');
+          }
+
+          while($row = $result->fetch_assoc() && $i < $n){
+            echo "<tr><td>".$row['title']."</td>";
+            echo "<td>".$row['company']."</td>";
+            echo "<td>".$row['stock']."</td>";
+            echo "<td>".$row['count(quantity)']."</td>";
+
+            $i++;
+          }
        }
     }
 

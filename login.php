@@ -5,14 +5,16 @@
 
 <title>CPSC 304 - Login</title>
 
-<!--
-	stylesheet
--->
-	<link href="styles.css" rel="stylesheet" type="text/css">
+<link href="styles.css" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
+<ul>
+  <li><a href="login.php">Customer Login</a></li>
+  <li><a href="manager.php">Manager</a></li>
+  <li>Clerk</li>
+</ul>
 
 <?php
 
@@ -36,7 +38,6 @@
 
 	//check if the request method is post and evaluate the if statements
 	if($_SERVER["REQUEST_METHOD"] == 'POST') {
-		//echo "<script type=\"text/javascript\">document.location.href=\"xampp\";</script>";
 		if (isset($_POST["login"]) && $_POST["login"] ==  "LOGIN") {
 			$_SESSION['CID'] = $_POST['new_customer_ID'];
 			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";

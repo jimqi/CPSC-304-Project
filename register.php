@@ -4,10 +4,8 @@
 <meta content="utf-8" http-equiv="encoding">
 
 <title>CPSC 304 - Register </title>
-<!--
-	stylesheet
--->
-	<link href="styles.css" rel="stylesheet" type="text/css">
+
+<link href="styles.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -40,9 +38,11 @@
 			$Name = $_POST['new_name'];
 			$Address = $_POST['new_address'];
 			$Phonenumber = $_POST['new_phonenumber'];
-			//Create a INSERT query prepared statement with ? for customer ID and password
+			
+                        //Create a INSERT query prepared statement with ? for customer ID and password
 			$stmt = $connection->prepare("INSERT INTO Customer (cid, password, name, address, phone) VALUES (?, ?, ?, ?, ?)");
-			//bind the customer ID and password passed via POST
+			
+                        //bind the customer ID and password passed via POST
 			if(isset($Customer_ID) && isset($Password) && isset($Name) && isset($Address) && isset($Phonenumber)) {
 			$stmt->bind_param("isssi", $Customer_ID, $Password, $Name, $Address, $Phonenumber);
 
