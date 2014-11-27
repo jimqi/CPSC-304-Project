@@ -36,7 +36,7 @@
 
           if (!$currentStock = $connection->query("SELECT stock
           				           FROM Item
-                                                   WHERE upc=".$upc)) {
+                                                   WHERE upc={$upc}")) {
                    die('There was an error running the query [' . $db->error . ']');
           }
 
@@ -88,7 +88,7 @@
 <h2>Generate Sales Report</h2>
 <form id="generate" name="generate" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <table border=0 cellpadding=0 cellspacing=0>
-        <tr><td>Date:</td><td><input type="text" size=30 name="date"</td></tr>
+        <tr><td>Date:</td><td><input type="date" size=30 name="date"</td></tr>
 	<tr><td></td><td><input type="submit" name="submit" border=0 value="GENERATE"></td></tr>
     </table>
 </form>
@@ -111,7 +111,7 @@
           // Select what to display
           if (!$result = $connection->query("SELECT upc, category, price, quantity
 					     FROM Item, Orderr, PurchaseItem
-					     WHERE date=".$date."
+					     WHERE date={$date}
                                              GROUP BY category")) {
                    die('There was an error running the query [' . $db->error . ']');
           }
@@ -166,7 +166,7 @@
 <h2>Top Selling Items</h2>
 <form id="topitems" name="topitems" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <table border=0 cellpadding=0 cellspacing=0>
-        <tr><td>Date:</td><td><input type="text" size=30 name="date"</td></tr>
+        <tr><td>Date:</td><td><input type="date" size=30 name="date"</td></tr>
         <tr><td>Number:</td><td><input type="number" size=30 name="number"</td></tr>
 	<tr><td></td><td><input type="submit" name="submit" border=0 value="TOP_ITEMS"></td></tr>
     </table>
@@ -190,7 +190,7 @@
           // Select what to display
           if (!$result = $connection->query("SELECT title, company, stock, count(quantity)
 					     FROM Item, PurchaseItem, Order
-					     WHERE date=".$date."
+					     WHERE date={$date}
 					     GROUP BY upc
                                              ORDER BY count(quantity) desc")) {
                    die('There was an error running the query [' . $db->error . ']');

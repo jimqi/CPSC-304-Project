@@ -57,7 +57,7 @@
 -->
 <form id="login" name="login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 	<table border=0 cellpadding=0 cellspacing=0>
-        <tr><td>Customer ID</td><td><input type="text" size=30 name="new_customer_ID"</td></tr>
+        <tr><td>Customer ID</td><td><input type="text" size=30 name="new_customer_ID" value="Customer ID" </td></tr>
         <tr><td>Password</td><td><input type="password" size=30 name="new_password"</td></tr>
         <tr><td></td><td><input type="submit" name="login" border=0 value="LOGIN"></td></tr>
         <tr><td></td><td><input type="submit" name="register" border=0 value="REGISTER"></td></tr>
