@@ -80,6 +80,10 @@
 	$stmt->execute();
 	$stmt = $connection->prepare("UPDATE returnn SET date={$mysqlidate} WHERE retid = {$rng}");
 	$stmt->execute();
+	 $stmt = $connection->prepare("INSERT INTO returnitem (retid) VALUES ({$rng})");
+	 $stmt->execute();
+	 $stmt = $connection->prepare("INSERT INTO returnitem (retid, upc, quantity) SELECT returnn.retid, purchaseitem.upc, purchaseitem.quantity FROM returnn, purchaseitem WHERE purchaseitem.receiptId = returnn.receiptId");
+	 $stmt->execute();	
 	
 			
 			echo($mysqlidate);
