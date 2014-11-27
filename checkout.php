@@ -73,13 +73,14 @@ if($_SERVER["REQUEST_METHOD"] == 'POST') {
 
 	<title> CPSC 304 - Shopping Cart </title>
 
-<!--
-	stylesheet
--->
 <link href="styles.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
+
+<nav id="nav01"></nav>
+<script src="Script.js"></script>
+
 	<form id="checkout" name="checkout" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		<table border=0 cellpadding=0 cellspacing=0>
 			<tr><td>Credit Card Number</td><td><input type="text" size=30 name="new_CC_number"</td></tr>

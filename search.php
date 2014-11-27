@@ -15,11 +15,15 @@
 </head>
 
 <body>
-	<h2>Search Results</h2>
-<!-- Set up a table to view the book titles -->
-<table border=0 cellpadding=0 cellspacing=0>
-<!-- Create the table column headings -->
 
+<nav id="nav01"></nav>
+<script src="Script.js"></script>
+
+<h2>Search Results</h2>
+
+<table border=0 cellpadding=0 cellspacing=0>
+
+<!-- Create the table column headings -->
 <tr valign=center>
 <td class=rowheader>Upc</td>
 <td class=rowheader>Title</td>

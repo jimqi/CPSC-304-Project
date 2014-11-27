@@ -84,10 +84,7 @@ if(isset($_GET['action'])) {
 </head>
 <body>
 
-<!--
-	Navigation Bar
--->
-<nav id="nav01"></nav>	
+<nav id="nav01"></nav>
 <script src="Script.js"></script>
 
 <div id="shoppingcart">

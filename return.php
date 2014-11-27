@@ -14,31 +14,14 @@
 
 <body>
 
+<nav id="nav01"></nav>
+<script src="Script.js"></script>
+
 <?php
-
-
-
-
 	//start session
 	session_start();
 	//mysql connection
 	include_once("config.php");
-	
-
-	
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-
 
 	//detect the user action
 	//case1: first visit or refresh
@@ -88,25 +71,12 @@
 			
 			echo($mysqlidate);
 	 }
-		
-		
-
-
-
-
-
-		
-
 
 	}
 	}
 	
 	
 ?>
-
-
-
-
 
 <h1> Return </h1>
 <!--
