@@ -80,10 +80,7 @@ if(isset($_GET['action'])) {
 
 	<title> CPSC 304 - Shopping Cart </title>
 
-<!--
-	stylesheet
--->
-<link href="styles.css" rel="stylesheet" type="text/css">
+        <link href="styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
