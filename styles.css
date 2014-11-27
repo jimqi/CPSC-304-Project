@@ -39,7 +39,10 @@ td {
 a {
 	font-family: verdana,helvetica;
 	font-size: 12px;
+    	display: inline;
+ 	width: 200px;
 }
+
 a:link { color: #bb3902; font-weight:normal; text-decoration:underline;}
 a:visited { color: #bb3902; font-weight:normal; text-decoration:underline;}
 a:active { color: #bb3902; font-weight:normal; text-decoration:underline;}
@@ -60,13 +63,25 @@ p {
 	font-size: 12px;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
+ul#menu {
     padding: 0;
-    overflow: hidden;
+    margin-bottom: 11px;
 }
 
-li {
-    float: left;
+ul#menu li {
+    display: inline;
+    margin-right: 3px;
+}
+
+ul#menu li a {
+    background-color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #696969;
+    border-radius: 4px 4px 0 0;
+}
+
+ul#menu li a:hover {
+    color: white;
+    background-color: black;
 }
