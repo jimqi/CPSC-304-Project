@@ -78,7 +78,7 @@
 	 $stmt->execute();
 	$stmt = $connection->prepare("UPDATE returnn SET receiptId = {$ReceiptID} WHERE retid = {$rng}");
 	$stmt->execute();
-	$stmt = $connection->prepare("UPDATE returnn SET date={$mysqlidate} WHERE retid = {$rng}");
+	$stmt = $connection->prepare("UPDATE returnn INNER JOIN orderr USING (receiptId) SET returnn.date = orderr.date");
 	$stmt->execute();
 	 $stmt = $connection->prepare("INSERT INTO returnitem (retid) VALUES ({$rng})");
 	 $stmt->execute();
