@@ -227,11 +227,12 @@ global $input;
 	}
 			 if (isset($_POST["submit"]) && $_POST["submit"] ==  "ADD") {
 			 $UPC = $_POST['new_upc'];
+			 $cart = $_SESSION['cart'];
 			 if ($cart) {	
 			$cart .= ','.$UPC;
 			$_SESSION['cart'] = $cart;
 		} else {
-			$cart = $_GET['id'];
+			$cart = $UPC;
 			$_SESSION['cart'] = $cart;
 		}
 

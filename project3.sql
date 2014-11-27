@@ -36,7 +36,7 @@ create table Customer
 
 drop table if exists Orderr;
 create table Orderr
-	(receiptId int not null PRIMARY KEY AUTO_INCREMENT,
+	(receiptId int not null PRIMARY KEY,
 	date date null,
 	cid int null,
     FOREIGN KEY (cid) REFERENCES Customer(cid),

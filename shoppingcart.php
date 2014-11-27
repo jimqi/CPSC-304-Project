@@ -101,7 +101,6 @@ if(isset($_GET['action'])) {
 </tr>
 <?php
 echo showCart();
-echo bill();
 ?>
 
 </div>

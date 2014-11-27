@@ -2,6 +2,7 @@
 
 	//start session
 session_start();
+$cart = $_SESSION['cart'];
 	//mysql connection
 require_once("config.php");
 require_once("functions.php");
@@ -24,7 +25,7 @@ if($_SERVER["REQUEST_METHOD"] == 'POST') {
 		$CID = $_SESSION['CID'];
 		$card = $_POST['new_CC_number'];
 		$expiryDate = $_POST['new_expiry_date'];
-		$receiptID = 10;
+		$receiptID = rand(1, 10000);;
 		$date = date("Y-m-d");
 		$order_per_day = 10;
 
@@ -41,11 +42,11 @@ if($_SERVER["REQUEST_METHOD"] == 'POST') {
 		}
 
 			//Prepare the sql query
-		$stmt = $connection->prepare("INSERT INTO orderr (receiptID, date, cid, card, expiryDate, expectedDate, deliveredDate) VALUES (null, ?, ?, ?, ?, ?, null);");
+		$stmt = $connection->prepare("INSERT INTO orderr (receiptID, date, cid, card, expiryDate, expectedDate, deliveredDate) VALUES (?, ?, ?, ?, ?, ?, null);");
 
             //bind values and execute if they're set
 		if(isset($receiptID) && isset($date) && isset($CID) && isset($card) && isset($expiryDate) && isset($expectedDate)) {
-			$stmt->bind_param("siiss", $date, $CID, $card, $expiryDate, $expectedDate);
+			$stmt->bind_param("isiiss", $receiptID, $date, $CID, $card, $expiryDate, $expectedDate);
 
 			//execute the statement
 			$stmt->execute();
@@ -55,6 +56,28 @@ if($_SERVER["REQUEST_METHOD"] == 'POST') {
 			} else {
 				echo "<b>Order Added</b>";
 			}
+			if ($cart) {
+				$items = explode(',',$cart);
+				$contents = array();
+		// converts the string of upcs into upc:qty pairs
+				foreach ($items as $item) {
+					$contents[$item] = (isset($contents[$item])) ? $contents[$item] + 1 : 1;
+				}
+				foreach ($contents as $id=>$qty) {
+					$stmt = $connection->prepare("INSERT INTO purchaseitem (receiptID, upc, quantity) VALUES (?, ?, ?);");
+					$stmt->bind_param("iii", $receiptID, $id, $qty);
+					$stmt->execute();
+					if($stmt->error) {
+						printf("<b>Error: %s.</b>\n", $stmt->error);
+					} else {
+					echo "<b>Purchase Added</b>";
+					}
+			}
+			//session_unset();
+
+			//session_destroy();
+
+			//echo "<script type=\"text/javascript\">document.location.href=\"login.php\";</script>";
 		}
 	}
 	elseif (isset($_POST["cancel"]) && $_POST["cancel"] ==  "CANCEL") {
@@ -63,6 +86,7 @@ if($_SERVER["REQUEST_METHOD"] == 'POST') {
 		echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
 			//})
 	}
+}
 }
 
 ?>
@@ -74,13 +98,13 @@ if($_SERVER["REQUEST_METHOD"] == 'POST') {
 
 	<title> CPSC 304 - Shopping Cart </title>
 
-<link href="styles.css" rel="stylesheet" type="text/css">
+	<link href="styles.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
 
-<nav id="nav01"></nav>
-<script src="Script.js"></script>
+	<nav id="nav01"></nav>
+	<script src="Script.js"></script>
 
 	<form id="checkout" name="checkout" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		<table border=0 cellpadding=0 cellspacing=0>

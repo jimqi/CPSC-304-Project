@@ -72,22 +72,31 @@ function showCart() {
 	return join('',$output);
 }
 
-//prints out the bill
-function drawtable($tablename) {
+function drawitem() {
 	$db_host = 'localhost';
 	$db_username = 'root';
 	$db_password = 'K7lp8tt3pksql';
 	$db_name = 'CPSC304';
 	$connection = new mysqli($db_host, $db_username, $db_password, $db_name);
 
-	$sql = "SELECT * FROM " . $tablename;
+	$sql = "SELECT * FROM ITEM";
 	$result = $connection->query($sql);
 	if ($result->num_rows == 0){
-				echo ("No Results");
-			}
-			    while($row = $result->fetch_assoc()){
-					populate($row);
+		echo ("No Results");
+	}
+	while($row = $result->fetch_assoc()){
+		echo "<form id='search' name='search' action=\"";
+		echo htmlspecialchars($_SERVER["PHP_SELF"]);
+		echo "\" method=\"POST\">";
+		echo "<td>".$row['upc']."</td>";
+		echo "<td>".$row['title']."</td>";
+		echo "<td>".$row['type']."</td>";
+		echo "<td>".$row['category']."</td>";
+		echo "<td>".$row['name']."</td>";
+		echo "<td>".$row['year']."</td>";
+		echo "<td>".$row['price']."</td>";
+		echo "<td>".$row['stock']."</td>";
+		echo "</td></tr>";
+	}
 }
-}
-
-?>
+	?>

@@ -18,6 +18,8 @@
 
 	//start session
 	session_start();
+	$_SESSION['cart'] = '';
+	$_SESSION['COD'] = 0;
 	//mysql connection
 	include_once("config.php");
 

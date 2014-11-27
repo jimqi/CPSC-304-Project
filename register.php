@@ -52,7 +52,7 @@
 			//execute the statement
 			$stmt->execute();
 
-			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";
+			echo "<script type=\"text/javascript\">document.location.href=\"login.php\";</script>";
 
     	}
     }
