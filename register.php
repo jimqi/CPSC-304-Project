@@ -11,6 +11,9 @@
 
 <body>
 
+<nav id="nav01"></nav>
+<script src="Script.js"></script>
+
 <?php
 	//setup connection
 	include_once("config.php");

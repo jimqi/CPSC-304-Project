@@ -9,11 +9,9 @@
 </head>
 
 <body>
-<ul>
-  <li><a href="login.php">Customer Login</a></li>
-  <li><a href="manager.php">Manager</a></li>
-  <li>Clerk</li>
-</ul>
+
+<nav id="nav01"></nav>
+<script src="Script.js"></script>
 
 <?php
     //start session
@@ -72,18 +70,6 @@
            <tr><td></td><td><input type="submit" name="submit" border=0 value="ADD_STOCK"></td></tr>
     </table>
 </form>
-
-<!-- TODO?
-<h2>Process Order Delivery</h2>
-<form id="process" name="process" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    <table border=0 cellpadding=0 cellspacing=0>
-        <tr><td>UPC:</td><td><input type="text" size=30 name="new_upc"</td></tr>
-        <tr><td>Title:</td><td><input type="text" size=30 name="new_title"</td></tr>
-	<tr><td></td><td><input type="submit" name="submit" border=0 value="PROCESS"></td></tr>
-    </table>
-</form>
--->
-
 
 <h2>Generate Sales Report</h2>
 <form id="generate" name="generate" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
