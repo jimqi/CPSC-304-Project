@@ -82,13 +82,12 @@ function drawtable($tablename) {
 
 	$sql = "SELECT * FROM " . $tablename;
 	$result = $connection->query($sql);
-
-	echo "<table>";
-	while($row = mysql_fetch_array($result)) {
-		echo "<tr><td>" . $row . "</td></tr>";
-	}
-	echo "</table>";
-
-	mysql_close();
+	if ($result->num_rows == 0){
+				echo ("No Results");
+			}
+			    while($row = $result->fetch_assoc()){
+					populate($row);
 }
+}
+
 ?>
