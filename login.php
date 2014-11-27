@@ -36,7 +36,6 @@
 
 	//check if the request method is post and evaluate the if statements
 	if($_SERVER["REQUEST_METHOD"] == 'POST') {
-		//echo "<script type=\"text/javascript\">document.location.href=\"xampp\";</script>";
 		if (isset($_POST["login"]) && $_POST["login"] ==  "LOGIN") {
 			$_SESSION['CID'] = $_POST['new_customer_ID'];
 			echo "<script type=\"text/javascript\">document.location.href=\"shoppingcart.php\";</script>";

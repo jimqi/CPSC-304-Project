@@ -90,12 +90,8 @@ if(isset($_GET['action'])) {
 <!--
 	Navigation Bar
 -->
-<ul>
-	<li><a href="login.php">Logout</a></li>
-	<li><a href="shoppingcart.php">Shopping Cart</a></li>
-	<li><a href="add-item.php">Add Items</a></li>
-	<li><a href="checkout.php">Checkout</a></li>
-</ul>
+<nav id="nav01"></nav>	
+<script src="Script.js"></script>
 
 <div id="shoppingcart">
 
@@ -112,6 +108,7 @@ if(isset($_GET['action'])) {
 </tr>
 <?php
 echo showCart();
+echo bill();
 ?>
 
 </div>

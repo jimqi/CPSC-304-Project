@@ -25,6 +25,7 @@ function showCart() {
 	if ($cart) {
 		$items = explode(',',$cart);
 		$contents = array();
+		// converts the string of upcs into upc:qty pairs
 		foreach ($items as $item) {
 			$contents[$item] = (isset($contents[$item])) ? $contents[$item] + 1 : 1;
 		}
@@ -43,7 +44,6 @@ function showCart() {
 		$output[] = '<th class=rowheader>Subtotal</th>';
 		$output[] = '<th class=rowheader></th>';
 		$output[] = '</tr>';
-		// converts the string of upcs into upc:qty pairs
 		foreach ($contents as $id=>$qty) {
 			$sql = 'SELECT * FROM ITEM WHERE upc = '.$id;
 			$result = $connection->query($sql);
@@ -70,5 +70,25 @@ function showCart() {
 		$output[] = '<p>You shopping cart is empty.</p>';
 	}
 	return join('',$output);
+}
+
+//prints out the bill
+function bill() {
+	$db_host = 'localhost';
+	$db_username = 'root';
+	$db_password = 'K7lp8tt3pksql';
+	$db_name = 'CPSC304';
+	$connection = new mysqli($db_host, $db_username, $db_password, $db_name);
+	$cart = $_SESSION['cart'];
+	if ($cart) {
+		$total = 0;
+		$items = explode(',',$cart);
+		$uniqueitem = array_unique($items);
+		foreach($uniqueitem as $item) {
+			$sql = 'SELECT title FROM ITEM WHERE upc '.$item;
+			$result = $connection->query($sql);
+			echo $result;
+		}
+	}
 }
 ?>
