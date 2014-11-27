@@ -16,11 +16,10 @@ if(isset($_GET['action'])) {
 		case 'add':
 		if ($cart) {
 			$cart .= ','.$_GET['id'];
-			$_SESSION['cart'] = $cart;
 		} else {
 			$cart = $_GET['id'];
-			$_SESSION['cart'] = $cart;
 		}
+		$_SESSION['cart'] = $cart;
 		break;
 		case 'delete':
 		if ($cart) {

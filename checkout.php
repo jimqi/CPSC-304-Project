@@ -3,7 +3,8 @@
 	//start session
 session_start();
 	//mysql connection
-include_once("config.php");
+require_once("config.php");
+require_once("functions.php");
 
 	//$_SESSION['connection'] = $connection;
 

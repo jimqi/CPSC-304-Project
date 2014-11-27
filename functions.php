@@ -73,22 +73,22 @@ function showCart() {
 }
 
 //prints out the bill
-function bill() {
+function drawtable($tablename) {
 	$db_host = 'localhost';
 	$db_username = 'root';
 	$db_password = 'K7lp8tt3pksql';
 	$db_name = 'CPSC304';
 	$connection = new mysqli($db_host, $db_username, $db_password, $db_name);
-	$cart = $_SESSION['cart'];
-	if ($cart) {
-		$total = 0;
-		$items = explode(',',$cart);
-		$uniqueitem = array_unique($items);
-		foreach($uniqueitem as $item) {
-			$sql = 'SELECT title FROM ITEM WHERE upc '.$item;
-			$result = $connection->query($sql);
-			echo $result;
-		}
+
+	$sql = "SELECT * FROM " . $tablename;
+	$result = $connection->query($sql);
+
+	echo "<table>";
+	while($row = mysql_fetch_array($result)) {
+		echo "<tr><td>" . $row . "</td></tr>";
 	}
+	echo "</table>";
+
+	mysql_close();
 }
 ?>
