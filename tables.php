@@ -11,43 +11,54 @@ require_once("functions.php");
 
 	<link href="styles.css" rel="stylesheet" type="text/css">
 </head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+jQuery(document).ready(function() {
+    jQuery('.tabs .tab-links a').on('click', function(e)  {
+        var currentAttrValue = jQuery(this).attr('href');
+ 
+        // Show/Hide Tabs
+        jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+ 
+        // Change/remove current tab to active
+        jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+ 
+        e.preventDefault();
+    });
+});
+</script>
+</head>
 <body>
-	<dl class="tabs" data-tab>
-		<dd class="active"><a href="#panel1">customer</a></dd>
-		<dd><a href="#panel2">hassong</a></dd>
-		<dd><a href="#panel3">item</a></dd>
-		<dd><a href="#panel4">leadsinger</a></dd>
-		<dd><a href="#panel5">order</a></dd>
-		<dd><a href="#panel6">purchaseitem</a></dd>
-		<dd><a href="#panel7">returnitem</a></dd>
-		<dd><a href="#panel8">return</a></dd>
-	</dl>
-	<div class="tabs-content">
-		<div class="content active" id="panel1">
-			<?php
-			drawtable("customer");
-			?>
+	<div class="tabs">
+		<ul class="tab-links">
+			<li class="active"><a href="#tab1">Tab #1</a></li>
+			<li><a href="#tab2">Tab #2</a></li>
+			<li><a href="#tab3">Tab #3</a></li>
+			<li><a href="#tab4">Tab #4</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div id="tab1" class="tab active">
+				<?php
+				drawtable("item");
+				?>
+			</div>
+
+			<div id="tab2" class="tab">
+				<p>Tab #2 content goes here!</p>
+				<p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+			</div>
+
+			<div id="tab3" class="tab">
+				<p>Tab #3 content goes here!</p>
+				<p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum ri.</p>
+			</div>
+
+			<div id="tab4" class="tab">
+				<p>Tab #4 content goes here!</p>
+				<p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+			</div>
 		</div>
-		<div class="content" id="panel2">
-			<p>This is the second panel of the basic tab example. This is the second panel of the basic tab example.</p>
-		</div>
-		<div class="content" id="panel3">
-			<p>This is the third panel of the basic tab example. This is the third panel of the basic tab example.</p>
-		</div>
-		<div class="content" id="panel4">
-			<p>This is the fourth panel of the basic tab example. This is the fourth panel of the basic tab example.</p>
-		</div>
-		<div class="content" id="panel5">
-			<p>This is the first panel of the basic tab example. This is the first panel of the basic tab example.</p>
-		</div>
-		<div class="content" id="panel6">
-			<p>This is the second panel of the basic tab example. This is the second panel of the basic tab example.</p>
-		</div>
-		<div class="content" id="panel7">
-			<p>This is the third panel of the basic tab example. This is the third panel of the basic tab example.</p>
-		</div>
-		<div class="content" id="panel8">
-			<p>This is the fourth panel of the basic tab example. This is the fourth panel of the basic tab example.</p>
-		</div>
-	</body>
-	</html>
+	</div>
+</body>
+</html>
