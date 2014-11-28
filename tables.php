@@ -39,24 +39,135 @@ jQuery(document).ready(function() {
 
 		<div class="tab-content">
 			<div id="tab1" class="tab active">
+						<body>
+						<h2>Search Results</h2>
+					<!-- Set up a table to view the book titles -->
+					<table border=0 cellpadding=0 cellspacing=0>
+					<!-- Create the table column headings -->
+
+					<tr valign=center>
+					<td class=rowheader>Upc</td>
+					<td class=rowheader>Title</td>
+					<td class=rowheader>Type</td>
+					<td class=rowheader>Category</td>
+					<td class=rowheader>Company</td>
+					<td class=rowheader>Year</td>
+					<td class=rowheader>Price</td>
+					<td class=rowheader>Stock</td>
+					</tr>
+					</body>
+			
 				<?php
-				drawtable("item");
+					$sql = "SELECT * FROM ITEM";
+					$result = $connection->query($sql);
+					if ($result->num_rows == 0){
+						echo ("No Results");
+					}
+					while($row = $result->fetch_assoc()){
+						echo "<form id='search' name='search' action=\"";
+						echo htmlspecialchars($_SERVER["PHP_SELF"]);
+						echo "\" method=\"POST\">";
+						echo "<td>".$row['upc']."</td>";
+						echo "<td>".$row['title']."</td>";
+						echo "<td>".$row['type']."</td>";
+						echo "<td>".$row['category']."</td>";
+						echo "<td>".$row['company']."</td>";
+						echo "<td>".$row['year']."</td>";
+						echo "<td>".$row['price']."</td>";
+						echo "<td>".$row['stock']."</td>";
+	
 				?>
 			</div>
 
 			<div id="tab2" class="tab">
-				<p>Tab #2 content goes here!</p>
-				<p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+			
+				<body>
+						<h2>Search Results</h2>
+					<!-- Set up a table to view the book titles -->
+					<table border=0 cellpadding=0 cellspacing=0>
+					<!-- Create the table column headings -->
+
+					<tr valign=center>
+					<td class=rowheader>Upc</td>
+					<td class=rowheader>Name</td>
+					</tr>
+					</body>
+				<?php
+					$sql = "SELECT * FROM LEADSINGER";
+					$result = $connection->query($sql);
+					if ($result->num_rows == 0){
+						echo ("No Results");
+					}
+					while($row = $result->fetch_assoc()){
+						echo "<form id='search' name='search' action=\"";
+						echo htmlspecialchars($_SERVER["PHP_SELF"]);
+						echo "\" method=\"POST\">";
+						echo "<td>".$row['upc']."</td>";
+						echo "<td>".$row['name']."</td>";
+				?>
 			</div>
 
 			<div id="tab3" class="tab">
-				<p>Tab #3 content goes here!</p>
-				<p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum ri.</p>
+			
+			<body>
+						<h2>Search Results</h2>
+					<!-- Set up a table to view the book titles -->
+					<table border=0 cellpadding=0 cellspacing=0>
+					<!-- Create the table column headings -->
+
+					<tr valign=center>
+					<td class=rowheader>Upc</td>
+					<td class=rowheader>Title</td>
+					</tr>
+					</body>
+				<?php
+					$sql = "SELECT * FROM HASSONG";
+					$result = $connection->query($sql);
+					if ($result->num_rows == 0){
+						echo ("No Results");
+					}
+					while($row = $result->fetch_assoc()){
+						echo "<form id='search' name='search' action=\"";
+						echo htmlspecialchars($_SERVER["PHP_SELF"]);
+						echo "\" method=\"POST\">";
+						echo "<td>".$row['upc']."</td>";
+						echo "<td>".$row['title']."</td>";
+				?>
 			</div>
 
 			<div id="tab4" class="tab">
-				<p>Tab #4 content goes here!</p>
-				<p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+			
+			<body>
+						<h2>Search Results</h2>
+					<!-- Set up a table to view the book titles -->
+					<table border=0 cellpadding=0 cellspacing=0>
+					<!-- Create the table column headings -->
+
+					<tr valign=center>
+					<td class=rowheader>CID</td>
+					<td class=rowheader>Password</td>
+					<td class=rowheader>Name</td>
+					<td class=rowheader>Address</td>
+					<td class=rowheader>Phone</td>
+					</tr>
+					</body>
+				<?php
+					$sql = "SELECT * FROM CUSTOMER";
+					$result = $connection->query($sql);
+					if ($result->num_rows == 0){
+						echo ("No Results");
+					}
+					while($row = $result->fetch_assoc()){
+						echo "<form id='search' name='search' action=\"";
+						echo htmlspecialchars($_SERVER["PHP_SELF"]);
+						echo "\" method=\"POST\">";
+						echo "<td>".$row['cid']."</td>";
+						echo "<td>".$row['password']."</td>";
+						echo "<td>".$row['name']."</td>";
+						echo "<td>".$row['address']."</td>";
+						echo "<td>".$row['phone']."</td>";
+	
+				?>
 			</div>
 		</div>
 	</div>
